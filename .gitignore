@@ -1,0 +1,6 @@
+# .env.local should be hidden for real repos
+#.env.local
+
+.localstack
+docker/proxy/key.pem
+docker/proxy/cert.pem

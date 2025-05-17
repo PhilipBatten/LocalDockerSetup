@@ -1,0 +1,43 @@
+networks:
+  frontend:
+    ipam:
+      config:
+        - subnet: 172.41.0.0/24
+
+services:
+  proxy:
+    networks:
+      frontend:
+        ipv4_address: 172.41.0.2
+        aliases:
+          - app.name.local
+
+  app:
+    networks:
+      frontend:
+        ipv4_address: 172.41.0.3
+    expose:
+      - 80
+    env_file:
+      - .env.local
+  
+  redis:
+    networks:
+      frontend:
+        ipv4_address: 172.41.0.4
+    expose:
+      - 6379
+    ports:
+      - 6379:6379
+
+  postgres:
+    networks:
+      frontend:
+        ipv4_address: 172.41.0.5
+    ports:
+      - 5432:5432
+    
+  dependencies:
+    networks:
+      frontend:
+        ipv4_address: 172.41.0.6
